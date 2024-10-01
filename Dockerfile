@@ -1,24 +1,9 @@
-FROM eclipse-temurin:21-jdk
+FROM gradle:8.7.0-jdk21
 
-ARG GRADLE_VERSION=8.7
+WORKDIR /app
 
-RUN apt-get update && apt-get install -yq unzip
+COPY /app .
 
-RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
-    && unzip gradle-${GRADLE_VERSION}-bin.zip \
-    && rm gradle-${GRADLE_VERSION}-bin.zip
+RUN gradle installDist
 
-ENV GRADLE_HOME=/opt/gradle
-
-RUN mv gradle-${GRADLE_VERSION} ${GRADLE_HOME}
-
-ENV PATH=$PATH:$GRADLE_HOME/bin
-
-WORKDIR ./
-
-COPY ./ .
-
-RUN ./app/gradlew build
-RUN ./app/gradlew installBootDist
-
-CMD ./build/install/app-boot/bin/app
+CMD ./build/install/app/bin/app
