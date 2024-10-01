@@ -8,4 +8,4 @@
 Task Manager – task similar to http://www.redmine.org/. It allows you to set tasks, assign performers and change their statuses. Registration and authentication are required to work with the system.
 
 ### Project demo
-[demo]https://java-project-99-rboq.onrender.com/welcome
+[TaskManager](https://java-project-99-rboq.onrender.com/welcome)
