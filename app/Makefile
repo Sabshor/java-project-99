@@ -7,7 +7,7 @@ run-dist:
 build:
 	./gradlew clean build
 install:
-	./gradlew clean installBootDist
+	./gradlew installBootDist
 lint:
 	./gradlew checkstyleMain
 test:
