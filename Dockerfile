@@ -18,7 +18,7 @@ WORKDIR ./
 
 COPY ./ .
 
-RUN gradle installDist
+RUN ./app/gradlew build
+RUN ./app/gradlew installBootDist
 
-
-CMD ./build/install/app/bin/app
+CMD ./build/install/app-boot/bin/app
