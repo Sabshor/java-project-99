@@ -1,7 +1,5 @@
 clean:
 	./gradlew clean
-run:
-	./gradlew bootRun
 run-dist:
 	./build/install/app-boot/bin/app
 build:
