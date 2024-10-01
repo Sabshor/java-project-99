@@ -4,6 +4,6 @@ WORKDIR /
 
 COPY / .
 
-RUN gradle installBootDist
+RUN gradle installDist
 
-CMD ./build/install/app-boot/bin/app
+CMD ./build/install/app/bin/app
