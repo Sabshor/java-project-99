@@ -6,4 +6,4 @@ COPY / .
 
 RUN gradle installBootDist
 
-CMD ./build/install/app-boot/bin/ap
+CMD ./build/install/app-boot/bin/app
