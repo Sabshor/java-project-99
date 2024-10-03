@@ -1,0 +1,9 @@
+# to select profile do: gradle -> application -> bootRun properties ->
+# -> add to Environment variables: --spring.profiles.active=stage   (or development)
+spring:
+  datasource:
+    url: jdbc:h2:mem:lso
+    username: sa
+    password:
+  h2:
+    console.enabled: true
