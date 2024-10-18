@@ -37,6 +37,12 @@ public class UserController {
         return ResponseEntity.ok()
                 .body(users);
     }
+    @GetMapping(path = "/na")
+    public ResponseEntity<List<UserDTO>> getAllNa() {
+        var users = userService.getAll();
+        return ResponseEntity.ok()
+                .body(users);
+    }
 
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)

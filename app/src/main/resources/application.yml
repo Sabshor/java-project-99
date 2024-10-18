@@ -1,6 +1,9 @@
 spring:
+  application:
+    name: app
   jpa:
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: update
   output:
@@ -8,3 +11,7 @@ spring:
       enabled: always
   profiles:
     default: development
+
+rsa:
+  private-key: classpath:certs/private.pem
+  public-key: classpath:certs/public.pem
