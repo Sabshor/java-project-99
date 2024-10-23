@@ -1,3 +1,9 @@
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: trace
 spring:
   application:
     name: app

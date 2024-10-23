@@ -2,6 +2,7 @@ package hexlet.code.component;
 
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
+import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class DataInitializer implements ApplicationRunner {
-    //@Autowired
-    //private final UserRepository userRepository;
+    @Autowired
+    private final UserRepository userRepository;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
@@ -27,9 +28,15 @@ public class DataInitializer implements ApplicationRunner {
         userData.setPassword("123");
         var user = userMapper.map(userData);
         userRepository.save(user);*/
-        var userData = new User();
-        userData.setEmail("aaa@bbb.com");
-        userData.setPassword("123");
-        customUserDetailsService.createUser(userData);
+        //var userData = new User();
+        //userData.setEmail("aaa@bbb.com");
+        //userData.setPassword("123");
+        if (userRepository.findByEmail("aaa@bbb.com").isEmpty()) {
+            var email = "aaa@bbb.com";
+            var userData = new User();
+            userData.setEmail(email);
+            userData.setPassword("123");
+            customUserDetailsService.createUser(userData);
+        }
     }
 }

@@ -35,12 +35,14 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getAll() {
         var users = userService.getAll();
         return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(users.size()))
                 .body(users);
     }
     @GetMapping(path = "/na")
     public ResponseEntity<List<UserDTO>> getAllNa() {
         var users = userService.getAll();
         return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(users.size()))
                 .body(users);
     }
 
