@@ -1,4 +1,4 @@
-package hexlet.code.dto;
+package hexlet.code.dto.userDTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,14 +7,14 @@ import lombok.Data;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 @Data
-public class UserUpdateDTO {
+public class UserCreateDTO {
     private JsonNullable<String> firstName;
     private JsonNullable<String> lastName;
 
     @Email
-    private JsonNullable<String> email;
+    private String email;
 
-    @NotBlank(message = "Password must be at least 3 characters")
+    @NotBlank
     @Size(min = 3)
-    private JsonNullable<String> password;
+    private String password;
 }
