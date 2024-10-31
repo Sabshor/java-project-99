@@ -1,8 +1,8 @@
 package hexlet.code.service;
 
-import hexlet.code.dto.userDTO.UserCreateDTO;
-import hexlet.code.dto.userDTO.UserDTO;
-import hexlet.code.dto.userDTO.UserUpdateDTO;
+import hexlet.code.dto.user.UserCreateDTO;
+import hexlet.code.dto.user.UserDTO;
+import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
@@ -33,8 +33,8 @@ public class UserService {
         return users.stream().map(userMapper::map).toList();
     }
 
-    public UserDTO create(UserCreateDTO data) {
-        var user = userMapper.map(data);
+    public UserDTO create(UserCreateDTO dto) {
+        var user = userMapper.map(dto);
         /*String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);*/
         userRepository.save(user);
@@ -42,10 +42,10 @@ public class UserService {
         return userMapper.map(user);
     }
 
-    public UserDTO update(UserUpdateDTO data, Long id) {
+    public UserDTO update(UserUpdateDTO dto, Long id) {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
-        userMapper.update(data, user);
+        userMapper.update(dto, user);
 
         /*if (data.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(data.getPassword().get()));
