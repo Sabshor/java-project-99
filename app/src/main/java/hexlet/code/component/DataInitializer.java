@@ -1,11 +1,15 @@
 package hexlet.code.component;
 
+import hexlet.code.dto.label.LabelCreateDTO;
 import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
+import hexlet.code.service.LabelService;
 import hexlet.code.service.TaskStatusService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,10 @@ public class DataInitializer implements ApplicationRunner {
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private TaskStatusService taskStatusService;
+    @Autowired
+    private LabelRepository labelRepository;
+    @Autowired
+    private LabelService labelService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -40,11 +48,24 @@ public class DataInitializer implements ApplicationRunner {
         var defaultStatuses = new ArrayList<TaskStatusCreateDTO>();
         defaultStatuses.add(new TaskStatusCreateDTO("Take", "take"));
         defaultStatuses.add(new TaskStatusCreateDTO("Completed", "completed"));
-
         var currentStatuses = taskStatusRepository.findAll().stream().map(TaskStatus::getSlug).toList();
         for (var status : defaultStatuses) {
             if (!currentStatuses.contains(status.getSlug())) {
                 taskStatusService.create(status);
+            }
+        }
+
+        var labelFeature = new LabelCreateDTO();
+        labelFeature.setName("feature");
+        var labelBug = new LabelCreateDTO();
+        labelBug.setName("bug");
+        var defaultLabels = new ArrayList<LabelCreateDTO>();
+        defaultLabels.add(labelFeature);
+        defaultLabels.add(labelBug);
+        var currentLabels = labelRepository.findAll().stream().map(Label::getName).toList();
+        for (var label : defaultLabels) {
+            if (!currentLabels.contains(label.getName())) {
+                labelService.create(label);
             }
         }
     }

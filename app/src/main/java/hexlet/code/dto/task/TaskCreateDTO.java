@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+import java.util.List;
+
 @Data
 public class TaskCreateDTO {
     @NotNull
@@ -22,4 +24,6 @@ public class TaskCreateDTO {
 
     @JsonProperty("assignee_id")
     private JsonNullable<Long> assigneeId;
+
+    private JsonNullable<List<Long>> taskLabelIds;
 }

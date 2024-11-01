@@ -5,8 +5,10 @@ import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
+import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -23,6 +25,8 @@ public class TaskService {
     private TaskRepository taskRepository;
     @Autowired
     private TaskStatusRepository taskStatusRepository;
+    @Autowired
+    private LabelRepository labelRepository;
     @Autowired
     private TaskMapper taskMapper;
 
@@ -53,6 +57,12 @@ public class TaskService {
         }
         task.setTaskStatus(taskStatus);
 
+        List<Label> labels = null;
+        if (dto.getTaskLabelIds() != null) {
+            labels = labelRepository.findByIdIn(dto.getTaskLabelIds().get());
+        }
+        task.setLabels(labels);
+
         taskRepository.save(task);
         return taskMapper.map(task);
     }
@@ -72,6 +82,12 @@ public class TaskService {
         if (dto.getSlug() != null) {
             TaskStatus taskStatus = taskStatusRepository.findBySlug(dto.getSlug().get()).orElse(null);
             task.setTaskStatus(taskStatus);
+        }
+
+        if (dto.getTaskLabelIds() != null) {
+            List<Label> labels = null;
+            labels = labelRepository.findByIdIn((dto.getTaskLabelIds()).get());
+            task.setLabels(labels);
         }
 
         taskRepository.save(task);

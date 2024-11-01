@@ -52,8 +52,6 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/v3/api-docs/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/swagger-ui/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/swagger-ui/index.html")).permitAll()
-                        //.requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/users")).permitAll()
-                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users/na")).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))
