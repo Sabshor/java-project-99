@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
     id("io.freefair.lombok") version "8.6"
+    id ("io.sentry.jvm.gradle") version "4.13.0"
     checkstyle
     jacoco
 }
@@ -63,4 +64,15 @@ tasks.jacocoTestReport {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+sentry {
+    includeSourceContext = true
+    org = "no-organization-w1"
+    projectName = "java-spring-boot"
+    authToken = System.getenv("SENTRY_AUTH_TOKEN")
+}
+
+tasks.sentryBundleSourcesJava {
+    enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
 }
