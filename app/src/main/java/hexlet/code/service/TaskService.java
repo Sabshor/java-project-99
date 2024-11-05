@@ -1,5 +1,6 @@
 package hexlet.code.service;
 
+import hexlet.code.dto.TaskParamDTO;
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
@@ -12,7 +13,9 @@ import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.specification.TaskSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,11 +32,13 @@ public class TaskService {
     private LabelRepository labelRepository;
     @Autowired
     private TaskMapper taskMapper;
+    @Autowired
+    private TaskSpecification taskSpecification;
 
-    public List<TaskDTO> getAll() {
-        var tasks = taskRepository.findAll();
-        var ff = tasks.stream().map(taskMapper::map).toList();
-        return ff;
+    public List<TaskDTO> getAll(TaskParamDTO params, PageRequest pageRequest) {
+        var specification = taskSpecification.build(params);
+        var tasks = taskRepository.findAll(specification, pageRequest);
+        return tasks.stream().map(taskMapper::map).toList();
     }
 
     public TaskDTO show(Long id) {
