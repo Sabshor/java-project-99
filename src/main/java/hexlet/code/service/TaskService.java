@@ -50,25 +50,21 @@ public class TaskService {
         return taskMapper.map(task);
 
         /*var task = taskMapper.map(dto);
-
         User assignee = null;
         if (dto.getAssigneeId() != null) {
             assignee = userRepository.findById(dto.getAssigneeId().get()).orElse(null);
         }
         task.setAssignee(assignee);
-
         TaskStatus taskStatus = null;
         if (dto.getSlug() != null) {
             taskStatus = taskStatusRepository.findBySlug(dto.getSlug()).orElse(null);
         }
         task.setTaskStatus(taskStatus);
-
         List<Label> labels = null;
         if (dto.getTaskLabelIds() != null) {
             labels = labelRepository.findByIdIn(dto.getTaskLabelIds().get());
         }
         task.setLabels(labels);
-
         taskRepository.save(task);
         return taskMapper.map(task);*/
     }
@@ -82,24 +78,20 @@ public class TaskService {
 
 
        /* taskMapper.update(dto, task);
-
         User assignee = null;
         if (dto.getAssigneeId() != null) {
             assignee = userRepository.findById(dto.getAssigneeId().get()).orElse(null);
         }
         task.setAssignee(assignee);
-
         if (dto.getSlug() != null) {
             TaskStatus taskStatus = taskStatusRepository.findBySlug(dto.getSlug().get()).orElse(null);
             task.setTaskStatus(taskStatus);
         }
-
         if (dto.getTaskLabelIds() != null) {
             List<Label> labels = null;
             labels = labelRepository.findByIdIn((dto.getTaskLabelIds()).get());
             task.setLabels(labels);
         }
-
         taskRepository.save(task);
         return taskMapper.map(task);*/
     }
