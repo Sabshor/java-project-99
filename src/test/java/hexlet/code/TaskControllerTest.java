@@ -56,6 +56,9 @@ class TaskControllerTest {
     private LabelRepository labelRepository;
 
     @Autowired
+    private TaskStatusRepository statusRepository;
+
+    @Autowired
     private ModelGenerator modelGenerator;
 
     @Autowired
@@ -123,6 +126,65 @@ class TaskControllerTest {
         assertThat(task.getName()).isEqualTo(data.getTitle());
         assertThat(task.getTaskStatus().getSlug()).isEqualTo(data.getSlug());
     }
+
+   // @Test
+   // public void testIndexTaskTest() throws Exception {
+        //восстановление очередности проблемного автотеста хекслета
+        /*2024-11-06T08:53:35.550Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Securing POST /api/task_statuses
+        app-1  |     2024-11-06T08:53:35.551Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Secured POST /api/task_statuses
+        app-1  |     Hibernate: insert into task_statuses (created_at,name,slug,id) values (?,?,?,default)
+        app-1  |     2024-11-06T08:53:35.556Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Securing POST /api/labels
+        app-1  |     2024-11-06T08:53:35.556Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Secured POST /api/labels
+        app-1  |     Hibernate: insert into labels (created_at,name,id) values (?,?,default)
+        app-1  |     2024-11-06T08:53:35.559Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Securing GET /api/labels
+        app-1  |     2024-11-06T08:53:35.560Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Secured GET /api/labels
+        app-1  |     Hibernate: select l1_0.id,l1_0.created_at,l1_0.name from labels l1_0
+        app-1  |     2024-11-06T08:53:35.569Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Securing POST /api/tasks
+        app-1  |     2024-11-06T08:53:35.570Z DEBUG 185 --- [    Test worker] o.s.security.web.FilterChainProxy
+        : Secured POST /api/tasks
+        apHibernate: select ts1_0.id,ts1_0.created_at,ts1_0.name,ts1_0.slug from task_statuses ts1_0 where ts1_0.slug=?
+        app-1  |     Hibernate: select l1_0.id,l1_0.created_at,l1_0.name from labels l1_0 where l1_0.id in (?)*/
+
+/*
+        //Hibernate: insert into task_statuses (created_at,name,slug,id) values (?,?,?,default)
+        //: Secured POST /api/task_statuses
+        var status = new TaskStatusCreateDTO("new Status", "newStatus");
+        var requestStatusCreate = post("/api/task_statuses")
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(status));
+        mockMvc.perform(requestStatusCreate).andExpect(status().isCreated());
+
+        //Hibernate: insert into labels (created_at,name,id) values (?,?,default)    : Secured POST /api/labels
+        var label = new LabelCreateDTO();
+        label.setName("new label name");
+        var requestLabelCreate = post("/api/labels")
+                .with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(label));
+        mockMvc.perform(requestLabelCreate).andExpect(status().isCreated());
+
+        //Hibernate: select l1_0.id,l1_0.created_at,l1_0.name from labels l1_0    :Secured GET /api/labels
+        var countLabelsRepo = labelRepository.count();
+        var requestLabelAll = get("/api/labels").with(token);
+        var responseResultLabels = mockMvc.perform(requestLabelAll)
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThatJson(responseResultLabels).isArray();
+
+        List<LabelDTO> listLabelsDTO = om.readValue(responseResultLabels, new TypeReference<List<LabelDTO>>() { });
+        assertThat(listLabelsDTO.size()).isEqualTo(countLabelsRepo);
+
+        var insertedStatus = statusRepository.findBySlug(status.getSlug()).get();
+        //var insertedLabel = labelRepository.findByIdIn(listLabelsDTO.).get();
+
+    }*/
 
     @Test
     public void testUpdate() throws Exception {

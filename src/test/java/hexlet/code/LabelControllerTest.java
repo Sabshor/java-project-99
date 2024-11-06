@@ -49,6 +49,8 @@ class LabelControllerTest {
 
     private SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor token;
 
+
+
     @BeforeEach
     public void setUp() {
         token = jwt().jwt(builder -> builder.subject("aaa@bbb.com"));

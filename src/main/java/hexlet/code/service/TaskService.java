@@ -6,9 +6,6 @@ import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.TaskMapper;
-import hexlet.code.model.Label;
-import hexlet.code.model.TaskStatus;
-import hexlet.code.model.User;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
@@ -49,6 +46,10 @@ public class TaskService {
 
     public TaskDTO create(TaskCreateDTO dto) {
         var task = taskMapper.map(dto);
+        taskRepository.save(task);
+        return taskMapper.map(task);
+
+        /*var task = taskMapper.map(dto);
 
         User assignee = null;
         if (dto.getAssigneeId() != null) {
@@ -69,14 +70,18 @@ public class TaskService {
         task.setLabels(labels);
 
         taskRepository.save(task);
-        return taskMapper.map(task);
+        return taskMapper.map(task);*/
     }
 
     public TaskDTO update(TaskUpdateDTO dto, Long taskId) {
         var task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id: " + taskId + " not found."));
-
         taskMapper.update(dto, task);
+        taskRepository.save(task);
+        return taskMapper.map(task);
+
+
+       /* taskMapper.update(dto, task);
 
         User assignee = null;
         if (dto.getAssigneeId() != null) {
@@ -96,7 +101,7 @@ public class TaskService {
         }
 
         taskRepository.save(task);
-        return taskMapper.map(task);
+        return taskMapper.map(task);*/
     }
 
     public void destroy(Long id) {
