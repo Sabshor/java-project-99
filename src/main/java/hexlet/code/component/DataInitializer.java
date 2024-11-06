@@ -44,6 +44,14 @@ public class DataInitializer implements ApplicationRunner {
             userData.setPassword("123");
             customUserDetailsService.createUser(userData);
         }
+        if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
+            // must be addet to hexlet tests
+            var email = "hexlet@example.com";
+            var userData = new User();
+            userData.setEmail(email);
+            userData.setPassword("qwerty");
+            customUserDetailsService.createUser(userData);
+        }
 
         var defaultStatuses = new ArrayList<TaskStatusCreateDTO>();
         defaultStatuses.add(new TaskStatusCreateDTO("Take", "take"));
