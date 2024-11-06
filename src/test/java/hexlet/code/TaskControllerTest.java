@@ -105,7 +105,7 @@ class TaskControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-        var taskStatus = taskStatusRepository.findBySlug("take").get();
+        var taskStatus = taskStatusRepository.findBySlug("draft").get();
         var data = new TaskCreateDTO();
         String name = "New Task Name";
         data.setTitle(name);
