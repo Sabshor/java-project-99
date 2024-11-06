@@ -61,8 +61,8 @@ public class DataInitializer implements ApplicationRunner {
         defaultStatuses.add(new TaskStatusCreateDTO("toPublish", "to_publish"));
         defaultStatuses.add(new TaskStatusCreateDTO("Published", "published"));
         // for my test
-        defaultStatuses.add(new TaskStatusCreateDTO("Take", "take"));
-        defaultStatuses.add(new TaskStatusCreateDTO("Completed", "completed"));
+        //defaultStatuses.add(new TaskStatusCreateDTO("Take", "take"));
+        //defaultStatuses.add(new TaskStatusCreateDTO("Completed", "completed"));
         var currentStatuses = taskStatusRepository.findAll().stream().map(TaskStatus::getSlug).toList();
         for (var status : defaultStatuses) {
             if (!currentStatuses.contains(status.getSlug())) {
