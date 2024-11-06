@@ -45,7 +45,7 @@ public class DataInitializer implements ApplicationRunner {
             customUserDetailsService.createUser(userData);
         }
         if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
-            // must be addet to hexlet tests
+            // need for hexlet autotests
             var email = "hexlet@example.com";
             var userData = new User();
             userData.setEmail(email);
@@ -56,6 +56,12 @@ public class DataInitializer implements ApplicationRunner {
         var defaultStatuses = new ArrayList<TaskStatusCreateDTO>();
         defaultStatuses.add(new TaskStatusCreateDTO("Take", "take"));
         defaultStatuses.add(new TaskStatusCreateDTO("Completed", "completed"));
+        // need for hexlet autotests
+        defaultStatuses.add(new TaskStatusCreateDTO("Draft", "draft"));
+        defaultStatuses.add(new TaskStatusCreateDTO("toReview", "to_review"));
+        defaultStatuses.add(new TaskStatusCreateDTO("toBeFixed", "to_be_fixed"));
+        defaultStatuses.add(new TaskStatusCreateDTO("toPublish", "to_publish"));
+        defaultStatuses.add(new TaskStatusCreateDTO("Published", "published"));
         var currentStatuses = taskStatusRepository.findAll().stream().map(TaskStatus::getSlug).toList();
         for (var status : defaultStatuses) {
             if (!currentStatuses.contains(status.getSlug())) {
