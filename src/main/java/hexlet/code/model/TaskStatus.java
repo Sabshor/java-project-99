@@ -21,9 +21,11 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 public class TaskStatus {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     @NotNull
     @Size(min = 1)
     private String name;
@@ -33,6 +35,7 @@ public class TaskStatus {
     @Size(min = 1)
     private String slug;
 
+    @Column
     @CreatedDate
     private LocalDate createdAt;
 }

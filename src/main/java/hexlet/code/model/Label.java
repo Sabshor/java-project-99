@@ -21,6 +21,7 @@ import java.time.LocalDate;
 public class Label {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     @Column(unique = true)
@@ -31,5 +32,6 @@ public class Label {
     //private List<Task> tasks;
 
     @CreatedDate
+    @Column
     private LocalDate createdAt;
 }

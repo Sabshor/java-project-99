@@ -27,23 +27,29 @@ import java.util.Collection;
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, BaseEntity {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String firstName;
 
+    @Column
     private String lastName;
 
     @Email
     @Column(unique = true)
     private String email;
 
+    @Column
     @NotBlank
     private String password;
 
+    @Column
     @CreatedDate
     private LocalDate createdAt;
 
+    @Column
     @LastModifiedDate
     private LocalDate updatedAt;
 
