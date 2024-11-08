@@ -23,11 +23,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -113,6 +113,7 @@ public class UserControllerTest {
         var updatedData = new UserUpdateDTO();
         updatedData.setFirstName(JsonNullable.of("UpdatedName"));
 
+
         var request = put("/api/users/" + testUser.getId())
                 .with(token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -121,6 +122,12 @@ public class UserControllerTest {
         mockMvc.perform(request).andExpect(status().isOk());
         var updatedUser = userRepository.findById(testUser.getId()).get();
         assertThat(updatedUser.getFirstName()).isEqualTo(updatedData.getFirstName().get());
+        assertThat(updatedUser.getLastName()).isEqualTo(testUser.getLastName());
+        assertThat(updatedUser.getEmail()).isEqualTo(testUser.getEmail());
+        /*String salt = BCrypt.gensalt();
+        assertThat(BCrypt.hashpw(updatedUser.getPassword(), salt))
+                .isEqualTo(BCrypt.hashpw(testUser.getPassword(), salt));*/
+        assertThat(updatedUser.getPassword()).isEqualTo(testUser.getPassword());
     }
 
     @Test
