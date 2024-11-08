@@ -6,8 +6,8 @@ import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.util.UserUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-
+    private final UserUtils utils;
 
     public UserDTO show(Long id) {
         var user = userRepository.findById(id)
@@ -55,6 +55,11 @@ public class UserService {
     }
 
     public void destroy(Long id) {
-        userRepository.deleteById(id);
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
+        var authenticationUser = utils.getCurrentUser();
+        if (authenticationUser.getEmail().equals(user.getEmail())) {
+            userRepository.deleteById(id);
+        }
     }
 }
