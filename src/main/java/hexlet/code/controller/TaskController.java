@@ -6,7 +6,7 @@ import hexlet.code.dto.task.TaskDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.service.TaskService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/tasks")
 public class TaskController {
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
     @GetMapping()
     public ResponseEntity<List<TaskDTO>> getAll(TaskParamDTO params, @RequestParam(defaultValue = "1") Integer page) {

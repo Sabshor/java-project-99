@@ -11,8 +11,7 @@ import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
 import hexlet.code.service.LabelService;
 import hexlet.code.service.TaskStatusService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,20 +19,14 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DataInitializer implements ApplicationRunner {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TaskStatusRepository taskStatusRepository;
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-    @Autowired
-    private TaskStatusService taskStatusService;
-    @Autowired
-    private LabelRepository labelRepository;
-    @Autowired
-    private LabelService labelService;
+    private final UserRepository userRepository;
+    private final TaskStatusRepository taskStatusRepository;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final TaskStatusService taskStatusService;
+    private final LabelRepository labelRepository;
+    private final LabelService labelService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

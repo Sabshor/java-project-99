@@ -1,7 +1,6 @@
 package hexlet.code.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +15,7 @@ import hexlet.code.util.JWTUtils;
 @RestController
 @RequestMapping("/api/login")
 public class AuthenticationController {
-    @Autowired
     private final JWTUtils jwtUtils;
-    @Autowired
     private final AuthenticationManager authenticationManager;
 
     @PostMapping(path = "")
