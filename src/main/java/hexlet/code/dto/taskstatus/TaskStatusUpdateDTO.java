@@ -1,4 +1,4 @@
-package hexlet.code.dto.taskStatus;
+package hexlet.code.dto.taskstatus;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Size;

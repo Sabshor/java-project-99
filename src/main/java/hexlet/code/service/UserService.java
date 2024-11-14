@@ -8,8 +8,10 @@ import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.util.UserUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -44,12 +46,14 @@ public class UserService {
     public UserDTO update(UserUpdateDTO dto, Long id) {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
-        userMapper.update(dto, user);
-
         /*if (data.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(data.getPassword().get()));
         }*/
-
+        var authenticationUser = utils.getCurrentUser();
+        if (!authenticationUser.getEmail().equals(user.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        userMapper.update(dto, user);
         userRepository.save(user);
         return userMapper.map(user);
     }

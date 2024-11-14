@@ -1,8 +1,8 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
-import hexlet.code.dto.taskStatus.TaskStatusUpdateDTO;
+import hexlet.code.dto.taskstatus.TaskStatusCreateDTO;
+import hexlet.code.dto.taskstatus.TaskStatusUpdateDTO;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.util.ModelGenerator;

@@ -1,7 +1,7 @@
 package hexlet.code.component;
 
 import hexlet.code.dto.label.LabelCreateDTO;
-import hexlet.code.dto.taskStatus.TaskStatusCreateDTO;
+import hexlet.code.dto.taskstatus.TaskStatusCreateDTO;
 import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
